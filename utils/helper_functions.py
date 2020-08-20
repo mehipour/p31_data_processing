@@ -24,6 +24,7 @@ def find_31p_scan(file_path):
     ''' reads meta data
     '''
     file_path = file_path + '/acqp'
+    pass
 
 
 
