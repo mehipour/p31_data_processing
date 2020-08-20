@@ -12,7 +12,3 @@ CENTER_PPM = -3
 
 # points to remove from beginning of FID
 POINTS_TO_REMOVE = 69
-
-# new parameter
-NEW_PARAM = None
-
