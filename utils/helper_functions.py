@@ -68,8 +68,6 @@ def find_all_protocols(main_path, good_rats):
         # discard bad rats
         if rat_number not in good_rats:
             continue
-        # get a list of rats
-        # rat_number_list.append(rat_number)
         # read all experimetns and include 31P studies only
         for experiment in os.listdir(main_path + directory):
             if '31P' in experiment:
