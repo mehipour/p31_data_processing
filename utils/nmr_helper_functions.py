@@ -4,8 +4,9 @@ import re
 import datetime as dt
 import pandas as pd
 import numpy as np
-from numpy import pi
+from numpy import pi, inf
 from numpy.fft import fft, fftshift
+from scipy.optimize import curve_fit
 
 
 def read_complex_fid(file_path, drop_points=68):
@@ -86,7 +87,44 @@ def find_all_protocols(main_path, good_rats):
                 study_dictionary[rat_number] = scan_path_list
     return study_dictionary
 
-                    
+
+def nmr_peak_fit(x, p0, p1, p2, p3, p4, p5, p6, 
+                 p7, p8, p9, p10, p11, p12, p13,
+                 p14, p15, p16, p17, p18, p19, p20,
+                 p21, p22, p23, p24, p25):
+    ''' function to fit 10 lorentizans and a 4th order polynomial fit to the 31p spectra
+    Args:
+    Return:
+    '''
+    f = p0*p20 / ((x-p10)**2 + p20**2) + \
+        p1*p20 / ((x-p11)**2 + p20**2) + \
+        p2*p20 / ((x-p12)**2 + p20**2) + \
+        p3*p20 / ((x-p13)**2 + p20**2) + \
+        p4*p20 / ((x-p14)**2 + p20**2) + \
+        p5*p20 / ((x-p15)**2 + p20**2) + \
+        p6*p20 / ((x-p16)**2 + p20**2) + \
+        p7*p20 / ((x-p17)**2 + p20**2) + \
+        p8*p20 / ((x-p18)**2 + p20**2) + \
+        p9*p20 / ((x-p19)**2 + p20**2) + \
+        p21 + p22*x + p23*x**2 + p24*x**3 + p25*x**4
+    return f
+
+
+def nmr_peak_fit_wrapper(x, s, f, r, p):
+    ''' wrapper function for the nmr_peak_fit to make its use easier
+    '''
+    p0, p1, p2, p3, p4 = s[0], s[1], s[2], s[3], s[4] 
+    p5, p6, p7, p8, p9 = s[5], s[6], s[7], s[8], s[9]
+    p10, p11, p12, p13, p14 = f[0], f[1], f[2], f[3], f[4] 
+    p15, p16, p17, p18, p19 = f[5], f[6], f[7], f[8], f[9]
+    p20 = r
+    p21, p22, p23, p24, p25 = p[0], p[1], p[2], p[3], p[4] 
+
+    return nmr_peak_fit(x, p0, p1, p2, p3, p4, p5, p6,
+                        p7, p8, p9, p10, p11, p12, p13,
+                        p14, p15, p16, p17, p18, p19, p20, 
+                        p21, p22, p23, p24, p25)
+
 # # correct baseline
 # def correct_baseline(nmr_object, poly_order=24):
 #     ''' takes spectrum object and returns the baseline corrected version.

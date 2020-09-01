@@ -23,6 +23,9 @@ class NMRObject():
 
     def get_spectrum(self):
         self.spectrum = fftshift(fft(self.fid))
+
+    def normalize_spectrum(self, scale=10):
+        self.spectrum = self.spectrum / max(self.spectrum) * scale
         
     def phase(self, ph0, ph1):
         idx = np.arange(0, self.np)
@@ -57,16 +60,19 @@ class NMRObject():
         plt.plot(self.ppm, np.real(self.spectrum), label='real')
         plt.plot(self.ppm, np.imag(self.spectrum), label='imaginary')
         plt.legend()
+        plt.xlim(20, -25)
         plt.show()
         
     def show_real_spectrum(self, show_ppm=True):
         plt.plot(self.ppm, np.real(self.spectrum), label='real')
         plt.legend()
+        plt.xlim(20, -25)
         plt.show()
         
     def show_abs_spectrum(self, show_ppm=True):
         plt.plot(self.ppm, np.absolute(self.spectrum), label='magnitude')
         plt.legend()
+        plt.xlim(20, -25)
         plt.show()
 
     def find_ppm(self, center_freq_mhz, center_ppm):
