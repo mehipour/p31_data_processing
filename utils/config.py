@@ -14,4 +14,4 @@ CENTER_FREQ_MHZ = 161.990667492615
 CENTER_PPM = -3
 
 # points to remove from beginning of FID
-POINTS_TO_REMOVE = 69
+POINTS_TO_REMOVE = 68

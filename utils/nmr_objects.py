@@ -13,26 +13,26 @@ class NMRObject():
         self.ph0 = 0
         self.ph1 = 0
         self.lb = 0
-        self.sw = 1000
+        self.sw = 8000
         self.original_fid = fid
         self.fid = fid
         self.np = self.fid.shape[0]
         self.baseline = np.zeros_like(self.fid)
-        self.ppm = np.arange(0,self.np)
+        self.ppm = np.arange(0, self.np)
         self.get_spectrum()
 
     def get_spectrum(self):
         self.spectrum = fftshift(fft(self.fid))
         
-    def phase(self, ph0=0, ph1=0):
-        idx = np.linspace(-np.floor(self.np/2), np.floor(self.np/2), self.np)
+    def phase(self, ph0, ph1):
+        idx = np.arange(0, self.np)
         dph0 = ph0 - self.ph0
         dph1 = ph1 - self.ph1
-        self.spectrum = self.spectrum * np.exp(1j*(dph0+dph1*idx))
+        self.spectrum = self.spectrum * np.exp(1j*(dph0 + dph1*idx))
         self.ph0 = ph0
         self.ph1 = ph1
         
-    def line_broad(self, lb=20):
+    def line_broad(self, lb=30):
         idx = np.linspace(0, self.np, self.np)
         dlb = lb - self.lb
         self.fid = self.fid * np.exp(-dlb*idx/self.sw)
@@ -87,8 +87,8 @@ class NMRObject():
             return super().__setattr__(name, value)
 
     def __dir__(self):
-        return ("ph0", "ph1", "ph", "lb", "np", "sw", 
-                "fid", "fidlb", "spectrum", "phased_spectrum", "baseline")
+        return ("ph0", "ph1", "ph", "lb", "np", "sw", "ppm",
+                "fid", "original_fid", "spectrum", "baseline")
 
 
 # # define Experiment object

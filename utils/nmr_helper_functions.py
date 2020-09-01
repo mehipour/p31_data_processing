@@ -8,7 +8,7 @@ from numpy import pi
 from numpy.fft import fft, fftshift
 
 
-def read_complex_fid(file_path, drop_points=69):
+def read_complex_fid(file_path, drop_points=68):
     ''' reads complex fid from bruker file
     '''
     file_path = file_path + '/fid' 
