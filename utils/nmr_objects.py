@@ -66,7 +66,7 @@ class NMRObject():
     def show_real_spectrum(self, show_ppm=True):
         plt.plot(self.ppm, np.real(self.spectrum), label='real')
         plt.legend()
-        plt.xlim(20, -25)
+        # plt.xlim(20, -25)
         plt.show()
         
     def show_abs_spectrum(self, show_ppm=True):
