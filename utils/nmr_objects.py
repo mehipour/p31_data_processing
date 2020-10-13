@@ -57,22 +57,28 @@ class NMRObject():
         plt.show()
     
     def show_complex_spectrum(self, show_ppm=True):
-        plt.plot(self.ppm, np.real(self.spectrum), label='real')
-        plt.plot(self.ppm, np.imag(self.spectrum), label='imaginary')
-        plt.legend()
-        plt.xlim(20, -25)
+        fig, ax = plt.subplots(1, 1)
+        ax.plot(self.ppm, np.real(self.spectrum), label='real')
+        ax.plot(self.ppm, np.imag(self.spectrum), label='imaginary')
+        ax.legend()
+        ax.invert_xaxis()
+        ax.set_xlabel('chemical shift (ppm)')
         plt.show()
         
     def show_real_spectrum(self, show_ppm=True):
-        plt.plot(self.ppm, np.real(self.spectrum), label='real')
-        plt.legend()
-        # plt.xlim(20, -25)
+        fig, ax = plt.subplots(1, 1)
+        ax.plot(self.ppm, np.real(self.spectrum), label='real')
+        ax.legend()
+        ax.invert_xaxis()
+        ax.set_xlabel('chemical shift (ppm)')
         plt.show()
         
     def show_abs_spectrum(self, show_ppm=True):
-        plt.plot(self.ppm, np.absolute(self.spectrum), label='magnitude')
-        plt.legend()
-        plt.xlim(20, -25)
+        fig, ax = plt.subplots(1, 1)
+        ax.plot(self.ppm, np.absolute(self.spectrum), label='magnitude')
+        ax.legend()
+        ax.invert_xaxis()
+        ax.set_xlabel('chemical shift (ppm)')
         plt.show()
 
     def find_ppm(self, center_freq_mhz, center_ppm):
